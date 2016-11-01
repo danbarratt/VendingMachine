@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Xunit;
 using VendingMachines.Core;
 
-namespace VendingMachines.Tests
+namespace VendingMachines.Tests.about_coin_return
 {
     public class when_no_coins_have_been_inserted : VendingMachineTests
     {
@@ -16,10 +15,9 @@ namespace VendingMachines.Tests
         }
     }
 
+
     public class when_a_quarter_coin_has_been_inserted : VendingMachineTests
     {
-        private readonly IEnumerable<Coin> _returnedCoins;
-
         public when_a_quarter_coin_has_been_inserted()
         {
             VendingMachine.InsertCoin(new Coin(0.25));
@@ -40,10 +38,9 @@ namespace VendingMachines.Tests
         }
     }
 
+
     public class when_twos_coin_have_been_inserted : VendingMachineTests
     {
-        private readonly IEnumerable<Coin> _returnedCoins;
-
         public when_twos_coin_have_been_inserted()
         {
             VendingMachine.InsertCoin(new Coin(0.05));
@@ -65,10 +62,9 @@ namespace VendingMachines.Tests
         }
     }
 
+
     public class when_three_coins_have_been_inserted : VendingMachineTests
     {
-        private readonly IEnumerable<Coin> _returnedCoins;
-
         public when_three_coins_have_been_inserted()
         {
             VendingMachine.InsertCoin(new Coin(0.10));

@@ -6,7 +6,16 @@ namespace VendingMachines.Core
 {
     public class VendingMachine
     {
-        public decimal _currentBalance;
+        private decimal _currentBalance;
+
+        public ICollection<object> TakeOutTray { get; set; }
+
+
+        public VendingMachine()
+        {
+            TakeOutTray = new Collection<object>();
+        }
+
 
         public IEnumerable<Coin> CoinReturn()
         {
@@ -34,9 +43,8 @@ namespace VendingMachines.Core
         {
             throw new ArithmeticException("Not sure how to refund: " + _currentBalance);
         }
-
-
-        private static Coin TryRefundCoin(ref decimal currentBalance, decimal proposedCoinValue)
+        
+        private static Coin? TryRefundCoin(ref decimal currentBalance, decimal proposedCoinValue)
         {
             if (currentBalance >= proposedCoinValue)
             {
@@ -47,9 +55,20 @@ namespace VendingMachines.Core
             return null;
         }
 
+
         public void InsertCoin(Coin coin)
         {
             _currentBalance += coin.Value;
+        }
+
+
+        public void MakeSelection(VendingSelection selection)
+        {
+            if (_currentBalance < selection.Price)
+                return;
+
+            TakeOutTray.Add(selection.CreateItem());
+            _currentBalance -= selection.Price;
         }
     }
 }

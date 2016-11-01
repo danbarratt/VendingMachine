@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -52,19 +51,5 @@ namespace VendingMachines.Core
         {
             _currentBalance += coin.Value;
         }
-    }
-
-    public class Coin
-    {
-        public Coin(decimal value)
-        {
-            Value = value;
-        }
-
-        public Coin(double value) : this(Convert.ToDecimal(value))
-        {
-        }
-
-        public decimal Value { get; set; }
     }
 }

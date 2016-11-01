@@ -30,10 +30,10 @@ namespace VendingMachines.Core
         {
             while (_currentBalance > 0m)
             {
-                yield return TryRefundCoin(ref _currentBalance, Coin.Dollar) ??
-                             TryRefundCoin(ref _currentBalance, Coin.Quarter) ??
-                             TryRefundCoin(ref _currentBalance, Coin.Dime) ??
-                             TryRefundCoin(ref _currentBalance, Coin.Nickel) ??
+                yield return TryRefundCoin(Coin.Dollar) ??
+                             TryRefundCoin(Coin.Quarter) ??
+                             TryRefundCoin(Coin.Dime) ??
+                             TryRefundCoin(Coin.Nickel) ??
                              AssertInvalidCoinValue();
             }
         }
@@ -43,15 +43,13 @@ namespace VendingMachines.Core
             throw new ArithmeticException("Not sure how to refund: " + _currentBalance);
         }
 
-        private static Coin? TryRefundCoin(ref decimal currentBalance, Coin coin)
+        private Coin? TryRefundCoin(Coin coin)
         {
-            if (currentBalance >= coin.Value)
-            {
-                currentBalance -= coin.Value;
-                return coin;
-            }
+            if (_currentBalance < coin.Value)
+                return null;
 
-            return null;
+            _currentBalance -= coin.Value;
+            return coin;
         }
     }
 }

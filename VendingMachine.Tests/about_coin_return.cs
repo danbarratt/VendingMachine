@@ -17,11 +17,11 @@ namespace VendingMachines.Tests
         }
     }
 
-    public class when_one_coin_has_been_inserted : VendingMachineTests
+    public class when_a_quarter_coin_has_been_inserted : VendingMachineTests
     {
         private readonly IEnumerable<Coin> _returnedCoins;
 
-        public when_one_coin_has_been_inserted()
+        public when_a_quarter_coin_has_been_inserted()
         {
             VendingMachine.InsertCoin(new Coin(0.25));
 
@@ -37,17 +37,17 @@ namespace VendingMachines.Tests
         [Fact]
         public void the_coin_return_gives_back_the_same_value_of_coins()
         {
-            Assert.Equal(0.25, SumValueOfCoins(_returnedCoins));
+            Assert.Equal(0.25m, SumValueOfCoins(_returnedCoins));
         }
     }
 
-    public class when_two_coin_have_been_inserted : VendingMachineTests
+    public class when_twos_coin_have_been_inserted : VendingMachineTests
     {
         private readonly IEnumerable<Coin> _returnedCoins;
 
-        public when_two_coin_have_been_inserted()
+        public when_twos_coin_have_been_inserted()
         {
-            VendingMachine.InsertCoin(new Coin(0.25));
+            VendingMachine.InsertCoin(new Coin(0.05));
             VendingMachine.InsertCoin(new Coin(0.10));
 
             _returnedCoins = VendingMachine.CoinReturn();
@@ -62,7 +62,34 @@ namespace VendingMachines.Tests
         [Fact]
         public void the_coin_return_gives_back_the_same_value_of_coins_entered()
         {
-            Assert.Equal(0.35, SumValueOfCoins(_returnedCoins));
+            Assert.Equal(0.15m, SumValueOfCoins(_returnedCoins));
+        }
+    }
+
+    public class when_three_coins_have_been_inserted : VendingMachineTests
+    {
+        private readonly IEnumerable<Coin> _returnedCoins;
+
+        public when_three_coins_have_been_inserted()
+        {
+            VendingMachine.InsertCoin(new Coin(0.10));
+            VendingMachine.InsertCoin(new Coin(0.10));
+            VendingMachine.InsertCoin(new Coin(0.05));
+
+            _returnedCoins = VendingMachine.CoinReturn();
+        }
+
+        [Fact]
+        public void only_one_coin_is_returned()
+        {
+            // The vending machine can return a single coin to the same value as the coins entered
+            Assert.Equal(1, _returnedCoins.Count());
+        }
+
+        [Fact]
+        public void the_coin_return_gives_back_the_same_value_of_coins_entered()
+        {
+            Assert.Equal(0.25m, SumValueOfCoins(_returnedCoins));
         }
     }
 }

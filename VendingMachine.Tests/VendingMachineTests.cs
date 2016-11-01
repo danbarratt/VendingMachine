@@ -12,9 +12,9 @@ namespace VendingMachines.Tests
 
         protected VendingMachine VendingMachine => _vendingMachine.Value;
 
-        protected double SumValueOfCoins(IEnumerable<Coin> result)
+        protected decimal SumValueOfCoins(IEnumerable<Coin> result)
         {
-            return result.Aggregate(0d, (acc, coin) => acc + coin.Value);
+            return result.Aggregate(0m, (acc, coin) => acc + coin.Value);
         }
     }
 }

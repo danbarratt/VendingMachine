@@ -1,47 +1,65 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace VendingMachines.Core
 {
     public class VendingMachine
     {
-        public double _enteredCoinValue;
+        public decimal _currentBalance;
 
         public IEnumerable<Coin> CoinReturn()
         {
-            while (_enteredCoinValue > 0d)
+            if (_currentBalance == 0m)
+                return null;
+
+            var toReturn = new Collection<Coin>();
+
+            while (_currentBalance > 0m)
             {
-                if (_enteredCoinValue >= 0.25d)
-                {
-                    yield return new Coin(0.25);
-                    _enteredCoinValue -= 0.25;
-                }
-                else if (_enteredCoinValue >= 0.10d)
-                {
-                    yield return new Coin(0.10);
-                    _enteredCoinValue -= 0.10;
-                }
+                var aCoin = TryRefundCoin(ref _currentBalance, 1.00m) ??
+                            TryRefundCoin(ref _currentBalance, 0.25m) ??
+                            TryRefundCoin(ref _currentBalance, 0.10m) ??
+                            TryRefundCoin(ref _currentBalance, 0.05m);
+
+                if (aCoin != null)
+                    toReturn.Add(aCoin);
                 else
-                {
-                    throw new NotImplementedException("Not sure how to retfund: " + _enteredCoinValue);
-                }
+                    throw new ArithmeticException("Not sure how to refund: " + _currentBalance);
             }
+
+            return toReturn;
+        }
+
+        private static Coin TryRefundCoin(ref decimal currentBalance, decimal proposedCoinValue)
+        {
+            if (currentBalance >= proposedCoinValue)
+            {
+                currentBalance -= proposedCoinValue;
+                return new Coin(proposedCoinValue);
+            }
+
+            return null;
         }
 
         public void InsertCoin(Coin coin)
         {
-            _enteredCoinValue += coin.Value;
+            _currentBalance += coin.Value;
         }
     }
 
     public class Coin
     {
-        public Coin(double value)
+        public Coin(decimal value)
         {
             Value = value;
         }
 
-        public double Value { get; set; }
+        public Coin(double value) : this(Convert.ToDecimal(value))
+        {
+        }
+
+        public decimal Value { get; set; }
     }
 }

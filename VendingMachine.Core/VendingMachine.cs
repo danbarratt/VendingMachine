@@ -21,16 +21,21 @@ namespace VendingMachines.Core
                 var aCoin = TryRefundCoin(ref _currentBalance, 1.00m) ??
                             TryRefundCoin(ref _currentBalance, 0.25m) ??
                             TryRefundCoin(ref _currentBalance, 0.10m) ??
-                            TryRefundCoin(ref _currentBalance, 0.05m);
+                            TryRefundCoin(ref _currentBalance, 0.05m) ??
+                            AssertInvalidCoinValue();
 
-                if (aCoin != null)
-                    toReturn.Add(aCoin);
-                else
-                    throw new ArithmeticException("Not sure how to refund: " + _currentBalance);
+                toReturn.Add(aCoin);
             }
 
             return toReturn;
         }
+
+
+        private Coin AssertInvalidCoinValue()
+        {
+            throw new ArithmeticException("Not sure how to refund: " + _currentBalance);
+        }
+
 
         private static Coin TryRefundCoin(ref decimal currentBalance, decimal proposedCoinValue)
         {

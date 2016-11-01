@@ -20,7 +20,7 @@ namespace VendingMachines.Tests.about_coin_return
     {
         public when_a_quarter_coin_has_been_inserted()
         {
-            VendingMachine.InsertCoin(new Coin(0.25));
+            VendingMachine.InsertCoin(Coin.Quarter);
 
             _returnedCoins = VendingMachine.CoinReturn();
         }
@@ -43,8 +43,8 @@ namespace VendingMachines.Tests.about_coin_return
     {
         public when_twos_coin_have_been_inserted()
         {
-            VendingMachine.InsertCoin(new Coin(0.05));
-            VendingMachine.InsertCoin(new Coin(0.10));
+            VendingMachine.InsertCoin(Coin.Nickel);
+            VendingMachine.InsertCoin(Coin.Dime);
 
             _returnedCoins = VendingMachine.CoinReturn();
         }
@@ -67,9 +67,9 @@ namespace VendingMachines.Tests.about_coin_return
     {
         public when_three_coins_have_been_inserted()
         {
-            VendingMachine.InsertCoin(new Coin(0.10));
-            VendingMachine.InsertCoin(new Coin(0.10));
-            VendingMachine.InsertCoin(new Coin(0.05));
+            VendingMachine.InsertCoin(Coin.Dime);
+            VendingMachine.InsertCoin(Coin.Dime);
+            VendingMachine.InsertCoin(Coin.Nickel);
 
             _returnedCoins = VendingMachine.CoinReturn();
         }

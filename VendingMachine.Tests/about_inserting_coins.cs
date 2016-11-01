@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using VendingMachines.Core;
 using Xunit;
 
@@ -47,6 +48,4 @@ namespace VendingMachines.Tests.about_inserting_coins
             Assert.Equal(Coin.Dollar, VendingMachine.CoinReturn().Single());
         }
     }
-
-    // Made up coins cannot be used
 }

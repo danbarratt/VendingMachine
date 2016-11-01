@@ -36,7 +36,7 @@ namespace VendingMachines.Tests.about_buying_items
     {
         public when_not_enough_coins_have_been_added()
         {
-            VendingMachine.InsertCoin(new Coin(0.05));
+            VendingMachine.InsertCoin(Coin.Nickel);
 
             VendingMachine.MakeSelection(VendingSelection.ItemA);
 
@@ -61,9 +61,9 @@ namespace VendingMachines.Tests.about_buying_items
     {
         public when_enough_coins_for_item_A_have_been_inserted()
         {
-            VendingMachine.InsertCoin(new Coin(0.25));
-            VendingMachine.InsertCoin(new Coin(0.25));
-            VendingMachine.InsertCoin(new Coin(0.25));
+            VendingMachine.InsertCoin(Coin.Quarter);
+            VendingMachine.InsertCoin(Coin.Quarter);
+            VendingMachine.InsertCoin(Coin.Quarter);
 
             VendingMachine.MakeSelection(VendingSelection.ItemA);
 
@@ -88,8 +88,14 @@ namespace VendingMachines.Tests.about_buying_items
     {
         public when_enough_coins_for_item_A_and_item_B_have_been_inserted()
         {
-            VendingMachine.InsertCoin(new Coin(1.85));
-
+            VendingMachine.InsertCoin(Coin.Dollar);
+            VendingMachine.InsertCoin(Coin.Quarter);
+            VendingMachine.InsertCoin(Coin.Quarter);
+            VendingMachine.InsertCoin(Coin.Dime);
+            VendingMachine.InsertCoin(Coin.Dime);
+            VendingMachine.InsertCoin(Coin.Dime);
+            VendingMachine.InsertCoin(Coin.Nickel);
+            
             VendingMachine.MakeSelection(VendingSelection.ItemA);
             VendingMachine.MakeSelection(VendingSelection.ItemB);
 

@@ -3,7 +3,18 @@ using System.Collections.Generic;
 
 namespace VendingMachines.Core
 {
-    public class MoneyBox
+    public interface IMoneyBox
+    {
+        bool IsEmpty { get; }
+
+        void TryCreditBalance(Coin coin);
+
+        bool TryDebitBalalnce(VendingSelection selection);
+
+        IEnumerable<Coin> ReturnBalanceAsCoins();
+    }
+
+    public class MoneyBox : IMoneyBox
     {
         private decimal _currentBalance;
 
@@ -11,12 +22,12 @@ namespace VendingMachines.Core
         public bool IsEmpty => _currentBalance == 0m;
 
 
-        public void InsertCoin(Coin coin)
+        public void TryCreditBalance(Coin coin)
         {
             _currentBalance += coin.Value;
         }
 
-        public bool TryMakeSale(VendingSelection selection)
+        public bool TryDebitBalalnce(VendingSelection selection)
         {
             if (_currentBalance < selection.Price)
                 return false;

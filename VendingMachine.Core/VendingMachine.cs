@@ -6,7 +6,7 @@ namespace VendingMachines.Core
     public class VendingMachine
     {
         public ICollection<object> TakeOutTray { get; }
-        private readonly MoneyBox _moneyBox = new MoneyBox();
+        private readonly IMoneyBox _moneyBox = new MoneyBox();
 
 
         public VendingMachine()
@@ -24,12 +24,12 @@ namespace VendingMachines.Core
         
         public void InsertCoin(Coin coin)
         {
-            _moneyBox.InsertCoin(coin);
+            _moneyBox.TryCreditBalance(coin);
         }
         
         public void MakeSelection(VendingSelection selection)
         {
-            if (_moneyBox.TryMakeSale(selection))
+            if (_moneyBox.TryDebitBalalnce(selection))
             {
                 TakeOutTray.Add(selection.CreateItem());
             }

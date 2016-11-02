@@ -56,7 +56,7 @@ namespace VendingMachines.Tests.about_inserting_coins
         {
             var exception = Assert.Throws<ArgumentException>(() => VendingMachine.InsertCoin(new FakeCoin()));
 
-            Assert.Equal("This vending machine does not accepr FakeCoin. Please insert legal tender.", exception.Message);
+            Assert.Equal("This vending machine does not accept FakeCoin. Please insert legal tender.", exception.Message);
         }
     }
 }

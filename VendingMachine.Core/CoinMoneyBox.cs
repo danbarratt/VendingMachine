@@ -14,7 +14,7 @@ namespace VendingMachines.Core
         public void TryCreditBalance(IMoney money)
         {
             if (!(money is Coin))
-                throw new ArgumentException("This vending machine does not accepr FakeCoin. Please insert legal tender.");
+                throw new ArgumentException(string.Format("This vending machine does not accept {0}. Please insert legal tender.", money.GetType().Name));
 
             _currentBalance += money.Value;
         }

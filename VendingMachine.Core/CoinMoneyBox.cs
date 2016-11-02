@@ -3,18 +3,7 @@ using System.Collections.Generic;
 
 namespace VendingMachines.Core
 {
-    public interface IMoneyBox
-    {
-        bool IsEmpty { get; }
-
-        void TryCreditBalance(IMoney money);
-
-        bool TryDebitBalalnce(VendingSelection selection);
-
-        IEnumerable<IMoney> ReturnBalanceAsCoins();
-    }
-
-    public class MoneyBox : IMoneyBox
+    public class CoinMoneyBox : IMoneyBox
     {
         private decimal _currentBalance;
 
@@ -24,6 +13,9 @@ namespace VendingMachines.Core
 
         public void TryCreditBalance(IMoney money)
         {
+            if (!(money is Coin))
+                throw new ArgumentException("This vending machine does not accepr FakeCoin. Please insert legal tender.");
+
             _currentBalance += money.Value;
         }
 

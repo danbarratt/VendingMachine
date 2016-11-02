@@ -17,5 +17,10 @@ namespace VendingMachines.Tests
         {
             return result.Aggregate(0m, (acc, coin) => acc + coin.Value);
         }
+
+        public class FakeCoin : IMoney
+        {
+            public decimal Value => 0.37m;
+        }
     }
 }

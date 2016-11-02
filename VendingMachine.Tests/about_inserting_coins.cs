@@ -48,4 +48,15 @@ namespace VendingMachines.Tests.about_inserting_coins
             Assert.Equal(Coin.Dollar, VendingMachine.CoinReturn().Single());
         }
     }
+
+    public class when_inserting_fake_coin : VendingMachineTests
+    {
+        [Fact]
+        public void throws_an_exception()
+        {
+            var exception = Assert.Throws<ArgumentException>(() => VendingMachine.InsertCoin(new FakeCoin()));
+
+            Assert.Equal("This vending machine does not accepr FakeCoin. Please insert legal tender.", exception.Message);
+        }
+    }
 }

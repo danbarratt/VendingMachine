@@ -34,11 +34,11 @@ namespace VendingMachines.Core
                              TryRefundCoin(Coin.Quarter) ??
                              TryRefundCoin(Coin.Dime) ??
                              TryRefundCoin(Coin.Nickel) ??
-                             AssertInvalidCoinValue();
+                             AlertCoinNotRecognised();
             }
         }
 
-        private Coin AssertInvalidCoinValue()
+        private Coin AlertCoinNotRecognised()
         {
             throw new ArithmeticException("Not sure how to refund: " + _currentBalance);
         }

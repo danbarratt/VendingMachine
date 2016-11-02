@@ -2,7 +2,12 @@
 
 namespace VendingMachines.Core
 {
-    public struct Coin
+    public interface IMoney
+    {
+        decimal Value { get; }
+    }
+
+    public struct Coin : IMoney
     {
         public static Coin Nickel  => new Coin(0.05m);
         public static Coin Dime    => new Coin(0.10m);

@@ -14,7 +14,7 @@ namespace VendingMachines.Core
             TakeOutTray = new Collection<object>();
         }
         
-        public IEnumerable<Coin> CoinReturn()
+        public IEnumerable<IMoney> CoinReturn()
         {
             if (_moneyBox.IsEmpty)
                 return null;

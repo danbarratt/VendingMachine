@@ -7,11 +7,11 @@ namespace VendingMachines.Core
     {
         bool IsEmpty { get; }
 
-        void TryCreditBalance(Coin coin);
+        void TryCreditBalance(IMoney money);
 
         bool TryDebitBalalnce(VendingSelection selection);
 
-        IEnumerable<Coin> ReturnBalanceAsCoins();
+        IEnumerable<IMoney> ReturnBalanceAsCoins();
     }
 
     public class MoneyBox : IMoneyBox
@@ -22,9 +22,9 @@ namespace VendingMachines.Core
         public bool IsEmpty => _currentBalance == 0m;
 
 
-        public void TryCreditBalance(Coin coin)
+        public void TryCreditBalance(IMoney money)
         {
-            _currentBalance += coin.Value;
+            _currentBalance += money.Value;
         }
 
         public bool TryDebitBalalnce(VendingSelection selection)
@@ -37,7 +37,7 @@ namespace VendingMachines.Core
             return true;
         }
 
-        public IEnumerable<Coin> ReturnBalanceAsCoins()
+        public IEnumerable<IMoney> ReturnBalanceAsCoins()
         {
             while (_currentBalance > 0m)
             {

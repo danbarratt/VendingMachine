@@ -7,13 +7,13 @@ namespace VendingMachines.Tests
 {
     public class VendingMachineTests
     {
-        protected IEnumerable<Coin> _returnedCoins;
+        protected IEnumerable<IMoney> _returnedCoins;
 
         private readonly Lazy<VendingMachine> _vendingMachine = new Lazy<VendingMachine>(() => new VendingMachine());
 
         protected VendingMachine VendingMachine => _vendingMachine.Value;
 
-        protected decimal SumValueOfCoins(IEnumerable<Coin> result)
+        protected decimal SumValueOfCoins(IEnumerable<IMoney> result)
         {
             return result.Aggregate(0m, (acc, coin) => acc + coin.Value);
         }
